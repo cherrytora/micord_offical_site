@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-brand-orange: #FF8D41;
+    --color-brand-cream: #FFF9F5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    @apply text-slate-800 bg-white;
+  }
+}
+
+@layer utilities {
+  .bg-brand-orange { background-color: #FF8D41; }
+  .text-brand-orange { color: #FF8D41; }
+  .bg-brand-cream { background-color: #FFF9F5; }
+  .border-brand-orange { border-color: #FF8D41; }
+
+  .hero-gradient {
+    background: linear-gradient(135deg, #FFF9F5 0%, #FFEEDD 100%);
+  }
+}
+
+/* 折線圖動畫 */
+.line-chart-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 3s ease-out forwards;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}

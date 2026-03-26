@@ -1,0 +1,81 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const navLinks = [
+  { href: `${base}/`,               label: '首頁' },
+  { href: `${base}/tutorial`,       label: '教學' },
+  { href: `${base}/roadmap`,        label: '即將上線' },
+  { href: `${base}/release-notes`,  label: '更新日誌' },
+  { href: `${base}/contact`,        label: '聯絡我們' },
+];
+
+const currentPath = Astro.url.pathname;
+
+const APP_URL = 'https://micords.web.app/';
+---
+
+<nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-orange-100">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo -->
+    <a href={`${base}/`} class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center shadow-sm">
+        <svg viewBox="0 0 100 100" class="w-7 h-7 fill-none stroke-white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 40 L20 70 Q20 80 30 80 L70 80 Q80 80 80 70 L80 40 L65 20 L50 35 L35 20 Z" />
+          <path d="M35 55 L45 55 L52 45 L62 65 L70 55" stroke-width="6" />
+        </svg>
+      </div>
+      <span class="text-2xl font-bold tracking-tight text-brand-orange">Micords</span>
+    </a>
+
+    <!-- Desktop nav links -->
+    <div class="hidden md:flex items-center gap-1">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class={`px-4 py-2 rounded-full text-sm font-medium transition ${
+            currentPath === href
+              ? 'bg-orange-100 text-brand-orange'
+              : 'text-slate-600 hover:text-brand-orange hover:bg-orange-50'
+          }`}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <a
+      href={APP_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="bg-brand-orange text-white px-5 py-2 rounded-full font-medium hover:bg-orange-600 transition text-sm"
+    >
+      立即體驗
+    </a>
+
+    <!-- Mobile hamburger (pure CSS toggle) -->
+    <label class="md:hidden cursor-pointer ml-4 text-slate-600" for="mobile-menu-toggle" aria-label="開啟選單">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </label>
+  </div>
+
+  <!-- Mobile menu -->
+  <input type="checkbox" id="mobile-menu-toggle" class="hidden peer" />
+  <div class="hidden peer-checked:block md:hidden bg-white border-t border-orange-100 px-6 py-4 space-y-1">
+    {navLinks.map(({ href, label }) => (
+      <a
+        href={href}
+        class={`block px-4 py-2 rounded-xl text-sm font-medium transition ${
+          currentPath === href
+            ? 'bg-orange-100 text-brand-orange'
+            : 'text-slate-600 hover:bg-orange-50 hover:text-brand-orange'
+        }`}
+      >
+        {label}
+      </a>
+    ))}
+  </div>
+</nav>

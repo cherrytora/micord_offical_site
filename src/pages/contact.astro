@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const contacts = [
+  {
+    icon: '🧵',
+    title: '官方 Threads',
+    handle: '@rela2cats',
+    href: 'https://www.threads.com/@rela2cats',
+    desc: '最新消息、使用心得、貓咪日常，歡迎來找我們聊天。',
+    cta: '前往 Threads',
+  },
+  {
+    icon: '📝',
+    title: '意見回饋表單',
+    handle: 'Google 表單',
+    href: 'https://docs.google.com/forms/d/e/1FAIpQLSfGHGgkdV2jAep1zVODgT8oM0Ahzc_ORTHFPtApmLd3s-bXHQ/viewform?usp=header',
+    desc: '功能建議、Bug 回報、或任何想對我們說的話。',
+    cta: '填寫表單',
+  },
+];
+---
+
+<BaseLayout title="聯絡我們" description="有問題或建議？歡迎透過 Threads 或表單聯絡 Micords 團隊">
+  <Nav />
+
+  <div class="pt-28 pb-20 px-6">
+    <div class="max-w-2xl mx-auto">
+
+      <!-- 頁面標題 -->
+      <div class="text-center mb-16">
+        <p class="text-brand-orange font-bold tracking-widest uppercase text-sm mb-3">Contact</p>
+        <h1 class="text-4xl font-bold text-slate-900 mb-4">聯絡我們</h1>
+        <p class="text-slate-500 text-lg">有任何問題或想法，都歡迎找我們。</p>
+      </div>
+
+      <!-- 聯絡卡片 -->
+      <div class="grid sm:grid-cols-2 gap-6">
+        {contacts.map(({ icon, title, handle, href, desc, cta }) => (
+          <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm flex flex-col gap-4">
+            <div class="text-3xl">{icon}</div>
+            <div>
+              <h2 class="font-bold text-slate-900 text-lg">{title}</h2>
+              <p class="text-brand-orange text-sm font-medium mt-0.5">{handle}</p>
+            </div>
+            <p class="text-slate-500 text-sm leading-relaxed flex-1">{desc}</p>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 bg-brand-orange text-white px-6 py-3 rounded-2xl font-medium text-sm hover:bg-orange-600 transition"
+            >
+              {cta}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <!-- RiLa Lab -->
+      <div class="text-center mt-16 pt-10 border-t border-slate-100">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <div class="w-7 h-7 bg-slate-900 rounded flex items-center justify-center text-white font-bold text-xs">R</div>
+          <span class="font-bold tracking-tighter text-slate-800">RiLa Lab</span>
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-xs mx-auto">
+          小而美的獨立開發團隊，熱愛貓咪，相信好的工具能讓陪伴更長久。
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
