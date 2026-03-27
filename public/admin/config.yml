@@ -17,7 +17,7 @@ collections:
     summary: "v{{version}} - {{title}}"
     fields:
       - {name: version, label: "版本號", widget: string}
-      - {name: date, label: "發佈日期", widget: date, format: "YYYY-MM-DD"}
+      - {name: date, label: "發佈日期", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD"}
       - {name: title, label: "標題", widget: string}
       - {name: summary, label: "摘要", widget: string}
       - {name: body, label: "內容", widget: markdown}
