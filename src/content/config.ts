@@ -25,7 +25,7 @@ const releaseNotes = defineCollection({
   type: 'content',
   schema: z.object({
     version: z.string(),
-    date: z.string(),
+    date: z.union([z.string(), z.date().transform(d => d.toISOString().slice(0, 10))]),
     title: z.string(),
     summary: z.string(),
   }),
