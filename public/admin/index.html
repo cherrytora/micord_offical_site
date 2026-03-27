@@ -7,16 +7,34 @@
   </head>
   <body>
     <script>
-      // BroadcastChannel bridge: workaround for GitHub COOP breaking window.opener
+      // Workaround for GitHub COOP breaking window.opener in OAuth popup.
+      // Decap's NetlifyAuthenticator has a two-step protocol:
+      //   1. popup sends "authorizing:github" (handshake) → main registers authorizeCallback
+      //   2. popup sends "authorization:github:success:..." → main processes token
+      // Since window.opener is null after GitHub COOP, we relay via BroadcastChannel
+      // and simulate both steps with synthetic MessageEvents.
       (function () {
+        var BASE_URL = 'https://round-butterfly-d457.m85592527.workers.dev';
         var bc = new BroadcastChannel('decap_oauth');
         bc.onmessage = function (e) {
           if (e.data && e.data.token) {
-            var msg = 'authorization:github:success:' + JSON.stringify({ token: e.data.token, provider: 'github' });
+            var token = e.data.token;
+
+            // Step 1: handshake - triggers handshakeCallback, registers authorizeCallback
             window.dispatchEvent(new MessageEvent('message', {
-              data: msg,
-              origin: 'https://round-butterfly-d457.m85592527.workers.dev'
+              data: 'authorizing:github',
+              origin: BASE_URL,
+              source: null
             }));
+
+            // Step 2: after handshakeCallback runs (sync), authorizeCallback is ready
+            setTimeout(function () {
+              window.dispatchEvent(new MessageEvent('message', {
+                data: 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' }),
+                origin: BASE_URL,
+                source: null
+              }));
+            }, 50);
           }
         };
       })();
