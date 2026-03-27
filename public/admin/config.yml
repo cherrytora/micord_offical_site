@@ -1,12 +1,12 @@
 backend:
   name: github
-  repo: cherrytora/micord_offical_site
+  repo: cherrytora/micords_offical_site
   branch: main
   auth_type: pkce
   app_id: Ov23li6aNEDuFyQpOQTn
 
 media_folder: public/images
-public_folder: /micord_offical_site/images
+public_folder: /micords_offical_site/images
 
 collections:
   - name: release-notes
