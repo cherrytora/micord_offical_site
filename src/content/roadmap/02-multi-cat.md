@@ -2,7 +2,7 @@
 order: 1
 quarter: Q3 2026
 title: 新功能
-desc: 第二階段新功能
+desc: 第二階段新功能，包含支援多貓，優化看診紀錄及提醒功能
 status: building
 features:
   - 提醒通知可重複發送
